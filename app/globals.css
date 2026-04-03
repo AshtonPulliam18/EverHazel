@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-start: #f4f1ed;
+  --bg-end: #fef9f4;
+  --ink: #0e1116;
+  --accent: #ff6b35;
+  --moss: #1f7a5b;
+  --dusk: #2b2d42;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  color: var(--ink);
+  background: radial-gradient(1200px 600px at 15% -10%, #fff6ea 0%, transparent 55%),
+    radial-gradient(900px 500px at 85% -5%, #e9f7f1 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  min-height: 100vh;
+}
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+.glass {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(16, 24, 40, 0.08);
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #0e1116, #2b2d42 55%, #1f7a5b);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+
+html, body {
+  overflow-x: hidden;
+}
+
+
+.success-title {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.success-letter {
+  display: inline-block;
+  color: #1f7a5b;
+  animation: success-bounce 600ms ease both;
+}
+
+@keyframes success-bounce {
+  0% { transform: translateY(6px); opacity: 0; }
+  50% { transform: translateY(-4px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.modal-pop {
+  animation: modal-pop 220ms ease-out both;
+}
+
+@keyframes modal-pop {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.success-title {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.success-letter {
+  display: inline-block;
+  color: #1f7a5b;
+  animation: success-bounce 600ms ease both;
+}
+
+@keyframes success-bounce {
+  0% { transform: translateY(6px); opacity: 0; }
+  50% { transform: translateY(-4px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.modal-wave {
+  width: min(520px, 80vw);
+  aspect-ratio: 5 / 3;
+  border-radius: 32px;
+  background: rgba(31, 122, 91, 0.32);
+  filter: blur(1px);
+  animation: modal-wave 850ms ease-out both;
+}
+
+@keyframes modal-wave {
+  0% { transform: scale(1); opacity: 0.25; }
+  100% { transform: scale(2.7); opacity: 0; }
+}
