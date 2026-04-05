@@ -13,10 +13,12 @@ export function SiteFooter() {
             </p>
           </div>
           <div className="flex flex-col items-start gap-3 md:items-end">
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-6">
               <Link href="/services" className="hover:text-moss">Services</Link>
               <Link href="/demo" className="hover:text-moss">Demo</Link>
               <Link href="/contact" className="hover:text-moss">Contact</Link>
+              <Link href="/privacy" className="hover:text-moss">Privacy</Link>
+              <Link href="/terms" className="hover:text-moss">Terms</Link>
             </div>
             <p className="text-xs text-black/50">
               &copy; {new Date().getFullYear()} EverHazel LLC. All rights reserved.
@@ -27,4 +29,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-
