@@ -196,7 +196,7 @@ export function LeadForm({
           <SubmitButton label={label} disabled={disabled} />
         </div>
         <p className="text-xs text-black/60">
-          By submitting, you agree to receive email follow-ups. Reply STOP to opt out.
+          By submitting, you agree to receive email follow-ups. If you provide a phone number, you agree to receive a confirmation text. Reply STOP to opt out.
         </p>
       </form>
 

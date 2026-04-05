@@ -1,4 +1,4 @@
-﻿export type LeadPayload = {
+export type LeadPayload = {
   name: string;
   phone?: string;
   email: string;
@@ -6,6 +6,18 @@
   interest?: string;
   source?: string;
 };
+
+function normalizePhone(value?: string) {
+  if (!value) return undefined;
+  const trimmed = value.trim();
+  if (!trimmed) return undefined;
+  if (trimmed.startsWith('+')) return trimmed;
+  const digits = trimmed.replace(/\D/g, '');
+  if (!digits) return undefined;
+  if (digits.length === 10) return `+1${digits}`;
+  if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
+  return `+${digits}`;
+}
 
 function requireField(value: string | null, label: string) {
   if (!value || value.trim().length === 0) {
@@ -129,6 +141,33 @@ export async function handleLead(lead: LeadPayload) {
     );
   }
 
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_FROM_NUMBER) {
+    const toPhone = normalizePhone(lead.phone);
+    if (toPhone) {
+      const smsBody =
+        'Thanks for reaching out! We received your request and will reply shortly.\n- EverHazel\n\nReply STOP to opt out.';
+      const payload = new URLSearchParams({
+        From: process.env.TWILIO_FROM_NUMBER,
+        To: toPhone,
+        Body: smsBody
+      });
+      const auth = Buffer.from(
+        `${process.env.TWILIO_ACCOUNT_SID}:${process.env.TWILIO_AUTH_TOKEN}`
+      ).toString('base64');
+
+      backgroundTasks.push(
+        fetch(`https://api.twilio.com/2010-04-01/Accounts/${process.env.TWILIO_ACCOUNT_SID}/Messages.json`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Basic ${auth}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: payload.toString()
+        }).catch(() => undefined)
+      );
+    }
+  }
+
   if (process.env.FOLLOWUP_WEBHOOK_URL) {
     backgroundTasks.push(
       fetch(process.env.FOLLOWUP_WEBHOOK_URL, {
@@ -147,3 +186,4 @@ export async function handleLead(lead: LeadPayload) {
   await Promise.allSettled(backgroundTasks);
   return { ok: true };
 }
+
