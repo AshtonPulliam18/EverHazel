@@ -6,7 +6,7 @@ import { SectionHeading } from '../../components/SectionHeading';
 const tiers = [
   {
     title: 'Website Launch',
-    price: 'Starting at $250-450',
+    price: 'Starting at $250',
     items: [
       'Custom 3-page site (Home, Services, Contact)',
       'Mobile-first, fast, modern design',
@@ -15,7 +15,7 @@ const tiers = [
   },
   {
     title: 'Website + Automation',
-    price: 'Starting at $350-500',
+    price: 'Starting at $350',
     popular: 'Most Popular',
     items: [
       'Everything in Website Launch',
@@ -27,7 +27,7 @@ const tiers = [
   },
   {
     title: 'Automation Setup',
-    price: 'Starting at $250-450',
+    price: 'Starting at $250',
     items: [
       'Automation setup for an existing site',
       'Lead capture system',
@@ -38,7 +38,7 @@ const tiers = [
   },
   {
     title: 'Growth Retainer',
-    price: '$250-350/mo',
+    price: '$250/mo',
     items: [
       'Ongoing conversion improvements',
       'Landing page tweaks and testing',
