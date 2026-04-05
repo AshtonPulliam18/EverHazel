@@ -163,7 +163,29 @@ export async function handleLead(lead: LeadPayload) {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body: payload.toString()
-        }).catch(() => undefined)
+        })
+          .then(async (response) => {
+            if (!response.ok) {
+              let details = response.statusText;
+              try {
+                const data = await response.json();
+                details = JSON.stringify(data);
+              } catch {
+                try {
+                  const text = await response.text();
+                  if (text) details = text;
+                } catch {
+                  // ignore
+                }
+              }
+              console.error('[Twilio] SMS failed:', response.status, details);
+            } else {
+              console.log('[Twilio] SMS sent to', toPhone);
+            }
+          })
+          .catch((error) => {
+            console.error('[Twilio] SMS error:', error);
+          })
       );
     }
   }
@@ -186,4 +208,3 @@ export async function handleLead(lead: LeadPayload) {
   await Promise.allSettled(backgroundTasks);
   return { ok: true };
 }
-
